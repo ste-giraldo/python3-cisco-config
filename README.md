@@ -2,7 +2,7 @@
 
 Script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). 
 
-NB: Since netmiko provide only an extention for entering "config mode" use this workaround: 
+NB: Since netmiko provide only an extention for entering in "config mode" use this workaround: 
 1) When you have to use "show commands" add an "end" at the begin of the config_file and then all the commands, like this: 
   ```sh
 end
