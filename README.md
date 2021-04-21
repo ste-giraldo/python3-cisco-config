@@ -2,6 +2,12 @@
 
 Script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). 
 
+## Installation
+
+1. You must have Python3 and PIP installed on the device you are running the program on.
+2. You need to run `pip3 install netmiko` or `pip install netmiko` in a command prompt / terminal on your computer.
+3. You need to run `pip3 install ping3` or `pip install ping3` in a command prompt / terminal on your computer.
+
 NB: Since netmiko provides only an extention for entering in "config mode" use this workaround: 
 1) When you have to use "show commands" add an "end" in your file at the begin and then all the commands, like this: 
   ```sh
