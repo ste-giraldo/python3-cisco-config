@@ -1,5 +1,5 @@
 # Forked by Alex Munoz "Python-Cisco-Backup" script https://github.com/AlexMunoz905/
-# Mod & improvement by Ste Giraldo https://github.com/ste-giraldo
+# Mod & improvements by Ste Giraldo https://github.com/ste-giraldo
 
 # All pre-installed besides Netmiko.
 from csv import reader
