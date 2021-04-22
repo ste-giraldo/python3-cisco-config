@@ -39,6 +39,10 @@ router1#
 Outputted to router1_04-22-2021_23-00.txt
 10.0.0.1 is down!
   ```
+## SSH or Telnet mode 
+
+By changing the 'device_type' into "conf_run3.py"
+
 
 Since netmiko provides only an extention for entering in "config mode" use this workaround: 
 1) When you have to use "show commands" add an "end" in your file at the begin and then all the commands, like this: 
