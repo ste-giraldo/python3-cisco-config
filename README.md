@@ -5,6 +5,7 @@ Script for configuring Cisco routers from a set of commands in an external file 
 ## Installation
 
 1. You must have Python3 and PIP installed on the device you are running the program on.
+
     1.1 To install 'pip3' on Debian GNU/Linux type: `apt-get install python3-pip`.
 3. You need to run `pip3 install netmiko` or `pip install netmiko` in a command prompt / terminal on your computer.
 4. You need to run `pip3 install ping3` or `pip install ping3` in a command prompt / terminal on your computer.
