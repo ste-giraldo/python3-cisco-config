@@ -45,7 +45,7 @@ def get_saved_config(host, username, password, enable_secret):
     # Creates the connection to the device.
     net_connect = ConnectHandler(**cisco_ios)
     net_connect.enable()
-    # Configuring from commands in temp file.
+    # Configuring from commands in variable config file.
     output = net_connect.send_config_from_file(conf_name)
     time.sleep(0.5)
     print()
