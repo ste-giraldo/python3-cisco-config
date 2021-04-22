@@ -10,7 +10,7 @@ Script for configuring Cisco routers from a set of commands in an external file 
 3. You need to run `pip3 install netmiko` or `pip install netmiko` in a command prompt / terminal on your computer;
 4. You need to run `pip3 install ping3` or `pip install ping3` in a command prompt / terminal on your computer.
 
-## Usage 
+## Script usage
 
 As reported by the author, [Ping3](https://github.com/kyan001/ping3) require root privilege, please run the script as 'sudo': 
   ```sh
@@ -55,6 +55,7 @@ def get_saved_config(host, username, password, enable_secret):
         'secret': enable_secret,
     }
   ```
+## Commands file usage
 
 Since netmiko provides only an extention for entering in "config mode" use this workaround: 
 1) When you have to use "show commands" add an "end" in your file at the begin and then all the commands, like this: 
