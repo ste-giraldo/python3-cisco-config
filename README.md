@@ -41,8 +41,20 @@ Outputted to router1_04-22-2021_23-00.txt
   ```
 ## SSH or Telnet mode 
 
-By changing the 'device_type' into "conf_run3.py"
+By changing the `device_type:` into `conf_run3.py` script you can select the connection mode. Comment and decomment the line basing on your needs: 
 
+  ```sh
+# Gives us the information we need to connect.
+def get_saved_config(host, username, password, enable_secret):
+    cisco_ios = {
+        'device_type': 'cisco_ios',
+#        'device_type': 'cisco_ios_telnet',
+        'host': host,
+        'username': username,
+        'password': password,
+        'secret': enable_secret,
+    }
+  ```
 
 Since netmiko provides only an extention for entering in "config mode" use this workaround: 
 1) When you have to use "show commands" add an "end" in your file at the begin and then all the commands, like this: 
