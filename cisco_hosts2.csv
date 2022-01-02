@@ -1,0 +1,3 @@
+IP,Username,Password,Enable Secret
+router1,admin,password,enable_secret_password
+router2,admin,password,
