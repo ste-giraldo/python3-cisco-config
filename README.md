@@ -1,6 +1,6 @@
 # python3-cisco-config
 
-Script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). 
+Script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). Have a look at the CSV file in order to understand how to write it.
 
 ## Installation
 
@@ -10,13 +10,27 @@ Script for configuring Cisco routers from a set of commands in an external file 
 2. Then install Netmiko: `pip3 install netmiko` or `pip install netmiko`;
 3. And Ping3: `pip3 install ping3` or `pip install ping3`.
 
+## Hostname or DNS mode for output filename
+
+As first thing, you will be prompted to choose "hostname mode" or "DNS mode" for filename output. This script, place a text file in the result-config folder with the output of the configs done during the execution, it's useful for debugging or for further executions.
+
+```Hostname mode```: by selecting this option, the script will retrieve the hostname from the device, this can be useful if your CSV file contains only IP address and you want to output files starting with the hostname configured on the device; 
+
+```DNS mode```: by selecting this option, the script will retrieve the hostname from the first column of your CSV file, so if you type "router1" as device name, the output file will be router1_DATE.txt. The script will use your DNS servers in order to resolv router1, hence it's useful for those who have device names rightly mapped in their DNS servers. If you type an IP address instead of a name, the IP will be used as hostname, in this way: IP_DATE.txt.
+
 ## Script usage
 
 As reported by the author, [Ping3](https://github.com/kyan001/ping3) require root privilege, please run the script as 'sudo': 
   ```sh
-$ sudo python3 conf_run3.py
+$ sudo python3 conf_run.py
 
 This Python script sends 'show' or 'config' commands against devices listed in a CSV file. Use at your own risk.
+
+1. Filename output in hostname mode.
+2. Filename output in DNS mode.
+3. Exit. 
+
+Please pick an option. Check the README.md first: 2
 
 What is the name of your CONFIG file for Cisco devices?: config_file
 Ok, Config File exists
@@ -36,7 +50,7 @@ router1#sh ntp a
  * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
 router1#
 
-Outputted to router1_04-22-2021_23-00.txt
+Outputted to router1_2021-04-22_23-00.txt
 10.0.0.1 is down!
   ```
 ## SSH or Telnet mode 
@@ -70,3 +84,8 @@ ip host test3 3.3.3.3
 no ip host test3 3.3.3.3
 do write
   ```
+## Ping test and downDevices file
+
+Before try to deploy any config, this script perform a ping test to check wheter a device is reachable or not and skip those unreachables. In case of unreachables, you will find in the result-config folder a file named downDevices_DATE.txt with the list of those devices that doesn't replied to the ping. 
+
+Please note: if you filter ICMP echo request (ping) on your devices, remember to allow it from the host you use to run this script.
