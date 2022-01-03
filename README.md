@@ -91,4 +91,4 @@ Before try to deploy any config, this script perform a ping test to check wheter
 Please note: if you filter ICMP echo request (ping) on your devices, remember to allow it from the host you use to run this script.
 
 ## Screenshot of a run:
-![Screenshot of a run]()
+![Screenshot of a run](https://imgur.com/a/MPLnjba)
