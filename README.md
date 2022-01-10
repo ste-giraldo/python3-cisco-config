@@ -20,6 +20,10 @@ As first thing, you will be prompted to choose "hostname mode" or "DNS mode" for
 
 ***DNS mode***: by selecting this option, the script will retrieve the hostname from the first column of your CSV file, so if you type "router1" as device name, the output file will be router1_DATE.txt. The script will use your DNS servers in order to resolv router1, hence it's useful for those who have device names rightly mapped in their DNS servers. If you type an IP address instead of a name, the IP will be used as hostname, in this way: IP_DATE.txt.
 
+## CSV file syntax
+
+Please have a look a the files cisco_hosts.csv and cisco_hosts2.csv. In the column `IP` you can type IP addresses or DNS resolvable hostnames. The column `Enable Secret` can be populated or not depending on your device authentication mode. If you don't need to enter an enable password, leave the column blank, but don't forget the `comma` after the first password.
+
 ## Script usage
 
 As reported by the author, [Ping3](https://github.com/kyan001/ping3) require root privilege, please run the script as 'sudo': 
