@@ -1,0 +1,11 @@
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+router1(config)#end
+router1#sh clock
+23:00:25.218 CET-DST Thu Apr 22 2021
+router1#sh ntp a
+address         ref clock       st   when   poll reach  delay  offset   disp
++~193.204.114.232 .CTD.            1    776   1024   377  2.955  -0.530  1.131
+*~193.204.114.233 .CTD.            1    299   1024   377  2.977  -0.375  1.087
+* sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
+router1#
