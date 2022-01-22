@@ -63,7 +63,7 @@ Outputted to router1_2021-04-22_23-00.txt
   ```
 ## SSH or Telnet mode 
 
-By changing the `device_type:` into `conf_run3.py` script, you can select the connection mode. Comment and decomment the line basing on your needs: 
+By changing the `device_type:` into `conf_run.py` script, you can select the connection mode. Comment and decomment the line basing on your needs: 
 
   ```sh
 # Gives us the information we need to connect.
