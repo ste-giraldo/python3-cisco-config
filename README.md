@@ -88,7 +88,7 @@ Outputted to router1_2021-04-22_23-00.txt
 10.0.0.1 is down!
   ```
 
-## conf_run.py Screenshot of a run:
+## conf_run.py Screenshot of a run
 ![Screenshot of a run](https://i.imgur.com/dEO40P7.jpg)
 
 ## inline_conf_run.py Script usage
@@ -142,7 +142,7 @@ Outputted to router1_2022-03-06_23-28.txt
 10.0.0.1 is down!
   ```
 
-## inline_conf_run.py Screenshot of a run:
+## inline_conf_run.py Screenshot of a run
 ![Screenshot of a run](https://i.imgur.com/13P117S.jpg)
 
 ## Credits 
