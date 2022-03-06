@@ -4,7 +4,11 @@
 
 # python3-cisco-config
 
-Script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). Have a look at the CSV file in order to understand how to write it.
+This project consists in two scripts: 
+
+'conf_run.py' is a script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). Have a look at the CSV file in order to understand how to write it. 
+
+'inline_conf_run.py' works as conf_run.py but the options are inline. This version can run as oneshot or in a crontab for automation.
 
 ## Installation
 
