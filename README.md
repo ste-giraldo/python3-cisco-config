@@ -147,4 +147,5 @@ Outputted to router1_2022-03-06_23-28.txt
 
 ## Credits 
 Thanks to Alex Munoz https://github.com/AlexMunoz905/ for the original script and ping check improvement
+
 Thanks to Mr. Wolf https://github.com/bbird81 for the precious improvements with getopt for inline version, try, except and all the fish
