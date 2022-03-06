@@ -96,7 +96,7 @@ Outputted to router1_2021-04-22_23-00.txt
 As reported by the author, [Ping3](https://github.com/kyan001/ping3) require root privilege, please run the script as 'sudo': 
   ```sh
 $ sudo python3 inline_conf_run.py --help
-python3-cisco-config ver. 1.5.0i - 2022-02-26 | https://github.com/ste-giraldo
+python3-cisco-config ver. 1.5.0i - 2022-03-06 | https://github.com/ste-giraldo
 
 Usage: conf_run.py -c <config_filename> -s <host_list.csv> (Opt --verbose)
 Note: Default output filename is DNS based (check README.md)
@@ -108,7 +108,7 @@ Note: Default output filename is DNS based (check README.md)
        Device connection method: --ssh (SSH: default), --tnet (telnet)
        -h, --help    Print this help and exit 
   ```
-  Please respect the optional variable positioning, always use -c and -s (or long options) before any other options
+  Please respect the optional variables positioning, always use -c and -s (or long options) before any other options
   
   ```sh
 $ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose --tnet
