@@ -4,11 +4,11 @@
 
 # python3-cisco-config
 
-This project consists in two scripts: 
+This project propose two scripts: 
 
 `conf_run.py` is a script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). Have a look at the CSV file in order to understand how to write it. 
 
-`inline_conf_run.py` works as conf_run.py but the options are inline. **This version can run as oneshot or in a crontab for automation.**
+`inline_conf_run.py` works as conf_run.py but the options are inline and not prompt requested. **This version can run as oneshot or in a crontab for automation.**
 
 ## Installation
 
@@ -18,7 +18,7 @@ This project consists in two scripts:
 2. Then install Netmiko: `pip3 install netmiko` or `pip install netmiko`;
 3. And Ping3: `pip3 install ping3` or `pip install ping3`.
 
-## Hostname or DNS mode for output filename
+## Hostname or DNS mode for output filename for conf_run.py
 
 As first thing, you will be prompted to choose "hostname mode" or "DNS mode" for filename output. This script, place a text file in the result-config folder with the output of the configs done during the execution, it's useful for debugging or for further executions.
 
@@ -26,11 +26,33 @@ As first thing, you will be prompted to choose "hostname mode" or "DNS mode" for
 
 ***DNS mode***: by selecting this option, the script will retrieve the hostname from the first column of your CSV file, so if you type "router1" as device name, the output file will be router1_DATE.txt. The script will use your DNS servers in order to resolv router1, hence it's useful for those who have device names rightly mapped in their DNS servers. If you type an IP address instead of a name, the IP will be used as hostname, in this way: IP_DATE.txt.
 
+## Commands file usage
+
+Since netmiko provides only an extention for entering in "config mode" use this workaround: 
+1) When you have to use "show commands" add an "end" in your file at the begin and then all the commands, like this: 
+  ```sh
+end
+sh clock
+sh ntp a
+  ```
+2) When you have to go in config mode, just enter commands for config, like this:
+  ```sh
+ip host test3 3.3.3.3
+no ip host test3 3.3.3.3
+do write
+  ```
+
 ## CSV file syntax
 
 Please have a look a the files cisco_hosts.csv and cisco_hosts2.csv. In the column `IP` you can type IP addresses or DNS resolvable hostnames. The column `Enable Secret` can be populated or not depending on your device authentication mode. If you don't need to enter an enable password, leave the column blank, but don't forget the `comma` after the first password.
 
-## Script usage
+## Ping test and downDevices file
+
+Before try to deploy any config, these scripts perform a ping test to check wheter a device is reachable or not and skip those unreachables. In case of unreachables, you will find in the result-config folder a file named downDevices_DATE.txt with the list of those devices that doesn't replied to the ping. 
+
+Please note: if you filter ICMP echo request (ping) on your devices, remember to allow it from the host you use to run this script.
+
+## conf_run.py Script usage
 
 As reported by the author, [Ping3](https://github.com/kyan001/ping3) require root privilege, please run the script as 'sudo': 
   ```sh
@@ -65,42 +87,8 @@ router1#
 Outputted to router1_2021-04-22_23-00.txt
 10.0.0.1 is down!
   ```
-## SSH or Telnet mode 
 
-By changing the `device_type:` into `conf_run.py` script, you can select the connection mode. Comment and decomment the line basing on your needs: 
-
-  ```sh
-# Gives us the information we need to connect.
-def get_saved_config(host, username, password, enable_secret):
-    cisco_ios = {
-        'device_type': 'cisco_ios',
-#        'device_type': 'cisco_ios_telnet',
-        'host': host,
-        'username': username,
-        'password': password,
-        'secret': enable_secret,
-    }
-  ```
-## Commands file usage
-
-Since netmiko provides only an extention for entering in "config mode" use this workaround: 
-1) When you have to use "show commands" add an "end" in your file at the begin and then all the commands, like this: 
-  ```sh
-end
-sh clock
-sh ntp a
-  ```
-2) When you have to go in config mode, just enter commands for config, like this:
-  ```sh
-ip host test3 3.3.3.3
-no ip host test3 3.3.3.3
-do write
-  ```
-## Ping test and downDevices file
-
-Before try to deploy any config, this script perform a ping test to check wheter a device is reachable or not and skip those unreachables. In case of unreachables, you will find in the result-config folder a file named downDevices_DATE.txt with the list of those devices that doesn't replied to the ping. 
-
-Please note: if you filter ICMP echo request (ping) on your devices, remember to allow it from the host you use to run this script.
-
-## Screenshot of a run:
+## conf_run.py Screenshot of a run:
 ![Screenshot of a run](https://i.imgur.com/jA7oB0j.jpeg)
+
+## inline_conf_run.py Script usage
