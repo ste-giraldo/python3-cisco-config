@@ -92,3 +92,51 @@ Outputted to router1_2021-04-22_23-00.txt
 ![Screenshot of a run](https://i.imgur.com/jA7oB0j.jpeg)
 
 ## inline_conf_run.py Script usage
+
+As reported by the author, [Ping3](https://github.com/kyan001/ping3) require root privilege, please run the script as 'sudo': 
+  ```sh
+$ sudo python3 inline_conf_run.py --help
+python3-cisco-config ver. 1.5.0i - 2022-02-26 | https://github.com/ste-giraldo
+
+Usage: conf_run.py -c <config_filename> -s <host_list.csv> (Opt --verbose)
+Note: Default output filename is DNS based (check README.md)
+
+       -c, --conf <config_filename>
+       -s, --csv <host_list.csv>
+       Optional -v, --verbose
+       Optional -n, --host    Output filename use hostname retrived from device
+       Device connection method: --ssh (SSH: default), --tnet (telnet)
+       -h, --help    Print this help and exit 
+  ```
+  Please respect the optional variable positioning, always use -c and -s (or long options) before any other options
+    ```sh
+  sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv -v --tnet 
+Config filename is: config_file
+CSV filename is: cisco_hosts.csv
+
+Output filename will be DNS based
+
+Running in telnet mode
+
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+router1(config)#end
+router1#sh clock
+Load for five secs: 1%/0%; one minute: 3%; five minutes: 4%
+Time source is NTP, 23:28:24.172 CET Sun Mar 6 2022
+
+23:28:24.172 CET Sun Mar 6 2022
+router1#sh ntp a
+Load for five secs: 1%/0%; one minute: 3%; five minutes: 4%
+Time source is NTP, 23:28:24.228 CET Sun Mar 6 2022
+
+
+  address         ref clock       st   when   poll reach  delay  offset   disp
+*~193.204.114.232 .CTD.            1    151   1024   377  2.968  -0.209  1.105
++~193.204.114.233 .CTD.            1    468   1024   377  3.941  -0.105  1.073
+ * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
+router1#
+
+Outputted to router1_2022-03-06_23-28.txt
+10.0.0.1 is down!
+  ```
