@@ -8,7 +8,7 @@ This project propose two scripts:
 
 `conf_run.py` is a script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). Have a look at the CSV file in order to understand how to write it. 
 
-`inline_conf_run.py` works as conf_run.py but the options are inline and not prompt requested. **This version can run as oneshot or in a crontab for automation.**
+`inline_conf_run.py` works as conf_run.py but the options are inline and not prompt requested. **This version can run as oneshot or in a crontab for automation. Also, since it contains a lot of improvements than conf_run.py, I highly suggest to use this one.**
 
 ## Installation
 
@@ -146,6 +146,6 @@ Outputted to router1_2022-03-06_23-28.txt
 ![Screenshot of a run](https://i.imgur.com/13P117S.jpg)
 
 ## Credits 
-Thanks to Alex Munoz https://github.com/AlexMunoz905/ for the original script and ping check improvement
+Thanks to Alex Munoz https://github.com/AlexMunoz905/ for the original script and ping check improvement.
 
-Thanks to Mr. Wolf https://github.com/bbird81 for the precious improvements with getopt for inline version, try, except and "all the fish"
+Thanks to Mr. Wolf https://github.com/bbird81 for the precious improvements with getopt for inline version, try, except and "all the fish".
