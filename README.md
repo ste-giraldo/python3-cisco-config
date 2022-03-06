@@ -89,7 +89,7 @@ Outputted to router1_2021-04-22_23-00.txt
   ```
 
 ## conf_run.py Screenshot of a run:
-![Screenshot of a run](https://i.imgur.com/jA7oB0j.jpeg)
+![Screenshot of a run](https://i.imgur.com/dEO40P7.jpg)
 
 ## inline_conf_run.py Script usage
 
@@ -109,8 +109,9 @@ Note: Default output filename is DNS based (check README.md)
        -h, --help    Print this help and exit 
   ```
   Please respect the optional variable positioning, always use -c and -s (or long options) before any other options
-    ```sh
-  sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv -v --tnet 
+  
+  ```sh
+$ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose --tnet
 Config filename is: config_file
 CSV filename is: cisco_hosts.csv
 
@@ -140,3 +141,6 @@ router1#
 Outputted to router1_2022-03-06_23-28.txt
 10.0.0.1 is down!
   ```
+
+## inline_conf_run.py Screenshot of a run:
+![Screenshot of a run](https://i.imgur.com/13P117S.jpg)
