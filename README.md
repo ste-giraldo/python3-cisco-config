@@ -113,7 +113,7 @@ Note: Default output filename is DNS based (check README.md)
   Please respect the optional variables positioning, always use -c and -s (or long options) before any other options
   
   ```sh
-$ $ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose --ssh
+$ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose --ssh
 Config filename is: config_file
 CSV filename is: cisco_hosts.csv
 Running in SSH mode
@@ -128,11 +128,11 @@ config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 router1(config)#end
 router1#sh clock
-11:59:03.547 CEST Tue Jun 7 2022
+12:02:28.904 CEST Tue Jun 7 2022
 router1#
-Outputted to router1_2022-06-07_11-58.txt
+Outputted to router1_2022-06-07_12-02.txt
 
-The list of devices down or that refused the connection is in: result-config/downDevices_2022-06-07_11-58.txt
+The list of devices down or that refused the connection is in: result-config/downDevices_2022-06-07_12-02.txtt
   ```
 
 ## inline_conf_run.py Screenshot of a run
