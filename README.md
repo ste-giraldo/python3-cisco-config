@@ -128,11 +128,17 @@ config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 router1(config)#end
 router1#sh clock
-12:02:28.904 CEST Tue Jun 7 2022
-router1#
-Outputted to router1_2022-06-07_12-02.txt
+12:09:37.992 CEST Tue Jun 7 2022
+router1#sh ntp a
 
-The list of devices down or that refused the connection is in: result-config/downDevices_2022-06-07_12-02.txtt
+  address         ref clock       st   when   poll reach  delay  offset   disp
+*~10.25.0.9       127.127.1.1      2    775   1024   377  0.000  -4.000  1.978
+x~10.25.0.10      127.127.1.1      2    989   1024   377  1.000  16.500  1.977
+ * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
+router1#
+Outputted to router1_2022-06-07_12-09.txt
+
+The list of devices down or that refused the connection is in: result-config/downDevices_2022-06-07_12-09.txt
   ```
 
 ## inline_conf_run.py Screenshot of a run
