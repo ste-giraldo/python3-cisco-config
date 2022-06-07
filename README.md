@@ -142,7 +142,7 @@ The list of devices down or that refused the connection is in: result-config/dow
   ```
 
 ## inline_conf_run.py Screenshot of a run
-![Screenshot of a run](https://i.imgur.com/13P117S.jpg)
+![Screenshot of a run](https://i.imgur.com/t1530XA.jpeg)
 
 ## Credits 
 Thanks to Alex Munoz https://github.com/AlexMunoz905/ for the original script and ping check improvement.
