@@ -110,7 +110,7 @@ Note: Default output filename is DNS based (check README.md)
        -h, --help    Print this help and exit
 
   ```
-  Please respect the optional variables positioning, always use -c and -s (or long options) before any other options
+  Please respect the optional variables positioning, always use -c and -s (or long options) before any other options.
   
   ```sh
 $ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose --ssh
