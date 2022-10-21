@@ -150,7 +150,7 @@ def get_saved_config(host, username, password, enable_secret, flag_host, dport):
         downDeviceOutput.write(host + " Timeout_opening_connection\n")
         downDeviceOutput.close()
     # Handle the connection refused condition by adding the host line in the downDevices file.
-    except ConnectionRefusedError:
+    except (ConnectionRefusedError):
         print(bcolors.WARNING + "Connection refused from: " + bcolors.ENDC + host)
         downDeviceOutput = open("result-config/" + downfileName, "a")
         downDeviceOutput.write(host + " Device_refused_connection\n")
