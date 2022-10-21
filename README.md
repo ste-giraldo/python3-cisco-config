@@ -147,4 +147,4 @@ The list of devices down or that refused the connection is in: result-config/dow
 ## Credits 
 Thanks to Alex Munoz https://github.com/AlexMunoz905/ for the original script and ping check improvement.
 
-Thanks to Mr. Wolf https://github.com/bbird81 for the precious improvements with getopt for inline version, try, except and "all the fish".
+Thanks to Mr. Wolf https://github.com/bbird81 for the precious improvements with getopt for inline version, try except and "all the fish".
