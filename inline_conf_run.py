@@ -1,6 +1,6 @@
 # Forked by Alex Munoz "Python-Cisco-Backup" script https://github.com/AlexMunoz905/
 # Mods & improvements by Ste Giraldo https://github.com/ste-giraldo and Mr.Wolf https://github.com/bbird81 
-ver = "python3-cisco-config ver. 2.2.3 - 2022-05-24 | https://github.com/ste-giraldo"
+ver = "python3-cisco-config ver. 2.3.0 - 2023-01-22 | https://github.com/ste-giraldo"
 
 # All pre-installed besides Netmiko.
 import getpass, os, os.path, sys, getopt, time, cmd
@@ -10,8 +10,10 @@ import pathlib
 from datetime import date, datetime
 from netmiko import ConnectHandler
 from netmiko import ssh_exception, Netmiko
+#from netmiko import exceptions, Netmiko # For newest release of netmiko
 from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError
 from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
+#from netmiko.exceptions import NetMikoAuthenticationException, NetMikoTimeoutException # For newest release of netmiko
 from ping3 import ping, verbose_ping 
 
 class bcolors:
@@ -35,24 +37,33 @@ if not os.path.exists('result-config'):
 now = datetime.now()
 dt_string = now.strftime("%Y-%m-%d_%H-%M")
 
-# Checking open ports between SSH and Telnet and tell to get_saved_config which protocol to use. It start checking using SSH.
-'''
+# Checking open ports between SSH and Telnet and tell to get_saved_config which protocol to use. It start checks using SSH.
 def check_port(ip):
+#    socket.setdefaulttimeout(5.0)
     cp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#    cp.settimeout(5)
     ip_ssh = (ip, 22)
     ip_telnet = (ip, 23)
     try:
         check = cp.connect_ex(ip_ssh)
         if check == 0:
             return 'cisco_ios'
-    except: #in case of closed ssh, telnet will be tested
+        else: 
+            try:
+                check = cp.connect_ex(ip_telnet)
+                if check == 0:
+                    return 'cisco_ios_telnet'
+            except:
+                return 'SSH + Telnet not OK'
+    except: #in case of timeout ssh, telnet will be tested
         try:
             check = cp.connect_ex(ip_telnet)
             if check == 0:
                 return 'cisco_ios_telnet'
+            else: 
+                print("Telnet not OK")
         except:
-            return '' #no port is open, implement raise exception and continue
-'''
+            return 'No open ports' # No port is open, implement raise exception and continue.
 
 # Print the help message.
 def help_page():
@@ -64,7 +75,6 @@ def help_page():
     print('       -s, --csv <host_list.csv>')
     print('       Optional -v, --verbose')
     print('       Optional -n, --host    Output filename use hostname retrived from device')
-    print('       Device connection method: --ssh (SSH: default), --tnet (telnet)')
     print('       -h, --help    Print this help and exit')
     print()
     print('       Please respect the proposed sequence in the options declaring.\n')
@@ -89,18 +99,13 @@ def test_devices():
     return active_devices
 
 # Executes commands and saves config file.
-def get_saved_config(host, username, password, enable_secret, flag_host, dport):
+def get_saved_config(host, username, password, enable_secret, flag_host):
     global downfileName
-    if dport == 22:
-        driver = 'cisco_ios'
-    elif dport == 23:
-        driver ='cisco_ios_telnet'
-    else: 
-        driver = 'cisco_ios'
+    print(f"with driver {check_port(host)}") # Print the driver in use.
+    driver=check_port(host)
 
-    cisco_ios = {
-#            'device_type': check_port(host), #checks whichever port 22-23 is open and returns name of corresponding netmiko driver.
-            'device_type': driver, # Use related protocol basing on selected option from CLI.
+    handler = {
+            'device_type': driver, # Use related protocol basing on check_port result.
             'host': host,
             'username': username,
             'password': password,
@@ -110,11 +115,11 @@ def get_saved_config(host, username, password, enable_secret, flag_host, dport):
     downfileName = ("downDevices_" + dt_string + ".txt")
     # Creates connection to the device.
     try:
-        net_connect = ConnectHandler(**cisco_ios)
+        net_connect = ConnectHandler(**handler)
         net_connect.enable()
         # Configuring from commands in variable config file.
         output = net_connect.send_config_from_file(conf_name)
-        time.sleep(0.3)
+        time.sleep(0.2)
         print()
         print(output)
         # Creates the file name with either hostname/ip and date and time.
@@ -149,12 +154,14 @@ def get_saved_config(host, username, password, enable_secret, flag_host, dport):
         downDeviceOutput = open("result-config/" + downfileName, "a")
         downDeviceOutput.write(host + " Timeout_opening_connection\n")
         downDeviceOutput.close()
+'''
     # Handle the connection refused condition by adding the host line in the downDevices file.
     except (ConnectionRefusedError):
         print(bcolors.WARNING + "Connection refused from: " + bcolors.ENDC + host)
         downDeviceOutput = open("result-config/" + downfileName, "a")
         downDeviceOutput.write(host + " Device_refused_connection\n")
         downDeviceOutput.close()
+'''
 
 # Define command arguments for inline options.
 def main(argv):
@@ -163,7 +170,7 @@ def main(argv):
     try:
         # Set host or DNS mode flag to False.
         flag_host = False
-        opts, args = getopt.getopt(argv,"hnc:vs:",["conf=","csv=","help","host","verbose","ssh","tnet"])
+        opts, args = getopt.getopt(argv,"hnc:vs:",["conf=","csv=","help","host","verbose"])
     except getopt.GetoptError:
         help_page()
         sys.exit(2)
@@ -179,29 +186,18 @@ def main(argv):
         elif opt in ("-v", "--verbose"):
             print("Config filename is: " + bcolors.OKCYAN + conf_name + bcolors.ENDC)
             print("CSV filename is: " + bcolors.OKGREEN + csv_name + bcolors.ENDC)
-        elif opt in ("--ssh"):
-            print("Running in SSH mode")
-            dport = 22
-        elif opt in ("--tnet"):
-            print("Running in telnet mode")
-            dport = 23
         # Choose if run in IP address or DNS mode. If no flag is set, default option is DNS mode.
         elif opt in ("-n", "--host"):
             flag_host = True
 
-    # Handle the default connection method in SSH.
-    try:
-        dport
-    except:
-        dport=22
-        print("Running in SSH mode")
- 
     # Function to testing working IPs, it creates a file with down devices and provide a list with the up devices.
     active_devices = test_devices()
 
     # Cycle on reachable devices: credentials retrieve, commands run and output saving.
     for ip in active_devices:
         print(bcolors.OKGREEN + '\nRunning on: ' + bcolors.ENDC + ip)
+#        print(bcolors.OKGREEN + '\nRunning on: ' + bcolors.ENDC + ip, end= ' ')
+#        print(driver)
         with open(csv_name, 'r') as csvfile:
             csv_reader = csv.DictReader(csvfile)
             # Retrieve username and password
@@ -220,7 +216,7 @@ def main(argv):
                     username = row['Username']
                     password = row['Password']
                     enable_secret =row['Enable Secret']
-                    get_saved_config(ip, username, password, enable_secret, flag_host, dport)
+                    get_saved_config(ip, username, password, enable_secret, flag_host)
                     continue # Exiting from cycle and trying on the next device.
 
 if __name__ == "__main__": # Runs only from the command line.
