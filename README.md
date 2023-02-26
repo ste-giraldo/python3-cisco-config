@@ -119,39 +119,39 @@ CSV filename is: cisco_hosts.csv
 Checking devices reachability: 
 10.100.100.1 is down!
 
-Running on: router-1
+Running on: router1
 With driver: cisco_ios
 
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
-router-1(config)#end
-router-1#sh clock
+router1(config)#end
+router1#sh clock
 18:04:11.996 CET Sun Feb 26 2023
-router-1#sh ntp a
+router1#sh ntp a
 
   address         ref clock       st   when   poll reach  delay  offset   disp
 *~10.25.0.9       10.219.254.254   4    957   1024   377  1.000   5.500  1.974
 +~10.25.0.10      10.219.254.254   4    720   1024   377  0.000   5.000  1.982
  * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
-router-1#
-Outputted to config_backup-router-1_2023-02-26_18-04.txt
+router1#
+Outputted to config_backup-router1_2023-02-26_18-04.txt
 
-Running on: router-2
+Running on: router2
 With driver: cisco_ios_telnet
 
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
-router-2(config)#end
-router-2#sh clock
+router2(config)#end
+router2#sh clock
 18:04:27.048 MET+1 Sun Feb 26 2023
-router-2#sh ntp a
+router2#sh ntp a
 
       address         ref clock     st  when  poll reach  delay  offset    disp
 +~10.25.0.1        10.25.0.9         5   758  1024  377    12.8    4.29     5.9
 *~10.25.0.9        10.219.254.254    4   687  1024  377     1.8    0.70     0.3
  * master (synced), # master (unsynced), + selected, - candidate, ~ configured
-router-2#
-Outputted to config_backup-router-2_2023-02-26_18-04.txt
+router2#
+Outputted to config_backup-router2_2023-02-26_18-04.txt
 
 The list of devices down or that refused the connection is in: result-config/downDevices_2023-02-26_18-04.txt
   ```
