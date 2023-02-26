@@ -112,7 +112,7 @@ Note: Default output filename is DNS based (check README.md)
   Please respect the proposed sequence in the options declaring.
   
   ```sh
-$ sudo python3 inline_conf_run-2.3.2.py -c config_file -s cisco_hosts.csv --verbose
+$ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose
 Config filename is: config_file
 CSV filename is: cisco_hosts.csv
 
@@ -157,7 +157,8 @@ The list of devices down or that refused the connection is in: result-config/dow
   ```
 
 ## inline_conf_run.py Screenshot of a run
-![Screenshot of a run](https://i.imgur.com/t1530XA.jpeg)
+![Screenshot of a run](https://i.imgur.com/2QV3aDO.png)
+
 
 ## Credits 
 Thanks to Alex Munoz https://github.com/AlexMunoz905/ for the original script and ping check improvement.
