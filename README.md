@@ -2,7 +2,7 @@
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
-# python3-cisco-config for 2.2.3
+# python3-cisco-config
 
 This project propose two scripts: 
 
