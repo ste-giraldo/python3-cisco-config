@@ -8,7 +8,7 @@ This project propose two scripts:
 
 `conf_run.py` is a script for configuring Cisco routers from a set of commands in an external file (prompt requested) against a list of devices in an external CSV file (prompt requested). Have a look at the CSV file in order to understand how to write it. 
 
-`inline_conf_run.py` works as conf_run.py but the options are inline and not prompt requested. **This version can run as oneshot or in a crontab for automation. Also, since it contains a lot of improvements than conf_run.py, I highly suggest to use this one.**
+`inline_conf_run.py` works as conf_run.py but the options are inline and not prompt requested. **This version can run as oneshot or in a crontab for automation. Also, since it contains a lot of improvements than conf_run.py, like the ability to check if a device can be reached in SSH or Telnet, I highly suggest to use this one.**
 
 ## Installation
 
@@ -97,7 +97,7 @@ As reported by the author, [Ping3](https://github.com/kyan001/ping3) require roo
   ```sh
 $ sudo python3 inline_conf_run.py --help
 [sudo] password for operatore: 
-python3-cisco-config ver. 2.2.3 - 2022-05-24 | https://github.com/ste-giraldo
+python3-cisco-config ver. 2.3.5 - 2023-02-26 | https://github.com/ste-giraldo
 
 Usage: conf_run.py -c <config_filename> -s <host_list.csv> (Opt --verbose)
 Note: Default output filename is DNS based (check README.md)
@@ -106,39 +106,54 @@ Note: Default output filename is DNS based (check README.md)
        -s, --csv <host_list.csv>
        Optional -v, --verbose
        Optional -n, --host    Output filename use hostname retrived from device
-       Device connection method: --ssh (SSH: default), --tnet (telnet)
        -h, --help    Print this help and exit
 
   ```
-  Please respect the optional variables positioning, always use -c and -s (or long options) before any other options.
+  Please respect the proposed sequence in the options declaring.
   
   ```sh
-$ sudo python3 inline_conf_run.py -c config_file -s cisco_hosts.csv --verbose --ssh
+$ sudo python3 inline_conf_run-2.3.2.py -c config_file -s cisco_hosts.csv --verbose
 Config filename is: config_file
 CSV filename is: cisco_hosts.csv
-Running in SSH mode
 
 Checking devices reachability: 
 10.100.100.1 is down!
-10.100.100.2 is down!
 
-Running on: router1
+Running on: router-1
+With driver: cisco_ios
 
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
-router1(config)#end
-router1#sh clock
-12:09:37.992 CEST Tue Jun 7 2022
-router1#sh ntp a
+router-1(config)#end
+router-1#sh clock
+18:04:11.996 CET Sun Feb 26 2023
+router-1#sh ntp a
 
   address         ref clock       st   when   poll reach  delay  offset   disp
-*~10.25.0.9       127.127.1.1      2    775   1024   377  0.000  -4.000  1.978
-x~10.25.0.10      127.127.1.1      2    989   1024   377  1.000  16.500  1.977
+*~10.25.0.9       10.219.254.254   4    957   1024   377  1.000   5.500  1.974
++~10.25.0.10      10.219.254.254   4    720   1024   377  0.000   5.000  1.982
  * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
-router1#
-Outputted to router1_2022-06-07_12-09.txt
+router-1#
+Outputted to config_backup-router-1_2023-02-26_18-04.txt
 
-The list of devices down or that refused the connection is in: result-config/downDevices_2022-06-07_12-09.txt
+Running on: router-2
+With driver: cisco_ios_telnet
+
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+router-2(config)#end
+router-2#sh clock
+18:04:27.048 MET+1 Sun Feb 26 2023
+router-2#sh ntp a
+
+      address         ref clock     st  when  poll reach  delay  offset    disp
++~10.25.0.1        10.25.0.9         5   758  1024  377    12.8    4.29     5.9
+*~10.25.0.9        10.219.254.254    4   687  1024  377     1.8    0.70     0.3
+ * master (synced), # master (unsynced), + selected, - candidate, ~ configured
+router-2#
+Outputted to config_backup-router-2_2023-02-26_18-04.txt
+
+The list of devices down or that refused the connection is in: result-config/downDevices_2023-02-26_18-04.txt
   ```
 
 ## inline_conf_run.py Screenshot of a run
