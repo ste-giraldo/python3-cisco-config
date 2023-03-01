@@ -36,7 +36,7 @@ sys.tracebacklimit = 0
 # Define the backup path where to output the results of configs issued and unreachable hosts.
 backupPath = "result-config/"
 # Define the output filename prefix to handle for versioning or logrotating.
-fileNamePfx = "config_backup"
+fileNamePfx = "config_output"
 # Define the delay factor in connecting to the next device and retriving the hostname from devices.
 delayFact = "2"
 
